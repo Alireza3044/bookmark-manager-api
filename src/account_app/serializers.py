@@ -18,7 +18,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         p = self.validated_data["password"]
         p2 = self.validated_data["password2"]
 
-        if User.objects.filter(email=e).exist():
+        if User.objects.filter(email=e).exists():
             raise serializers.ValidationError("There's an already existing account with this email.")
         if p != p2:
             raise serializers.ValidationError("Passwords do not match.")

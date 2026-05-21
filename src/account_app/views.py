@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 
 from account_app import serializers
@@ -17,7 +18,7 @@ class RegisterView(CreateAPIView):
         token = Token.objects.get(user=user)
         data = {
             "response": "Registration was successful!",
-            "name": user.name,
+            "username": user.username,
             "email": user.email,
             "token": token.key
         }
@@ -26,6 +27,8 @@ class RegisterView(CreateAPIView):
 
 
 class LogoutView(CreateAPIView):
+    permission_classes = [IsAuthenticated]
+
     def create(self, request):
-        self.user.auth_token.delete()
+        request.user.auth_token.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
