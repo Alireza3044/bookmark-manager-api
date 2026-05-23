@@ -13,6 +13,6 @@ urlpatterns = [
     path("", include(category_router.urls)),
     path("", include(bookmark_router.urls)),
     path("bookmarks/", views.GlobalBookmarksView.as_view(), name="global-bookmarks"),
-    # path("favorite/<int:pk>/", views., "favorite"),
-    # path("summary/", views., "summary"),
+    path("favorite/<int:pk>/", views.MakeFavoriteView.as_view(), name="favorite"),
+    path("summary/", views.SummaryView.as_view(), name="summary"),
 ]
