@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 
 from account_app import serializers
@@ -9,6 +9,7 @@ from account_app import serializers
 
 class RegisterView(CreateAPIView):
     serializer_class = serializers.RegisterSerializer
+    permission_classes = [AllowAny]
 
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -27,7 +28,6 @@ class RegisterView(CreateAPIView):
 
 
 class LogoutView(CreateAPIView):
-    permission_classes = [IsAuthenticated]
 
     def create(self, request):
         request.user.auth_token.delete()
