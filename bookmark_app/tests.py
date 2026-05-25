@@ -7,7 +7,7 @@ from rest_framework.authtoken.models import Token
 from bookmark_app import models
 
 
-class CategoryTest(APITestCase):
+class CategoryTestCase(APITestCase):
     def setUp(self):
         self.user1 = User.objects.create(username="user1", password="password")
         self.token1 = Token.objects.create(user=self.user1)
