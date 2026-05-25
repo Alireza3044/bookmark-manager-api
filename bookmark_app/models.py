@@ -15,6 +15,8 @@ class Category(models.Model):
             )
         ]
 
+    def __str__(self):
+        return f"{self.name} of {self.user.username}"
 
 class Bookmark(models.Model):
     title = models.CharField(max_length=100)
@@ -25,3 +27,6 @@ class Bookmark(models.Model):
     is_favorite = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.title} of {self.category.name} of {self.user.username}"
