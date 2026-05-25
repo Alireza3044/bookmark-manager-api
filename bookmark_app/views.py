@@ -11,6 +11,9 @@ class CategoryViewSet(ModelViewSet):
     queryset = models.Category.objects.all()
     serializer_class = serializers.CategorySerializer
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class BookmarkViewSet(ModelViewSet):
     queryset = models.Bookmark.objects.all()

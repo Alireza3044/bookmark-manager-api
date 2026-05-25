@@ -4,11 +4,10 @@ from bookmark_app import models
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
-
     class Meta:
         model = models.Category
         fields = "__all__"
+        read_only_fields = ["user"]
 
 
 class BookmarkSerializer(serializers.ModelSerializer):
@@ -16,8 +15,8 @@ class BookmarkSerializer(serializers.ModelSerializer):
         queryset=models.Category.objects.all(),
         slug_field="name"
     )
-    user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = models.Bookmark
         fields = "__all__"
+        read_only_fields = ["user"]
