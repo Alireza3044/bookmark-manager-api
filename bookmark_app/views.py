@@ -8,26 +8,38 @@ from bookmark_app import models, serializers
 
 
 class CategoryViewSet(ModelViewSet):
-    queryset = models.Category.objects.all()
     serializer_class = serializers.CategorySerializer
+
+    def get_queryset(self):
+        return models.Category.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
 
 class BookmarkViewSet(ModelViewSet):
-    queryset = models.Bookmark.objects.all()
     serializer_class = serializers.BookmarkSerializer
+
+    def get_queryset(self):
+        return models.Bookmark.objects.filter(
+            category_id=self.kwargs.get('category_pk'),
+            user=self.request.user
+        )
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 class GlobalBookmarksView(ListAPIView):
-    queryset = models.Bookmark.objects.all()
     serializer_class = serializers.BookmarkSerializer
+
+    def get_queryset(self):
+        return models.Bookmark.objects.filter(user=self.request.user)
 
 
 class MakeFavoriteView(APIView):
     def post(self, request, pk):
-        bookmark = models.Bookmark.objects.get(pk=pk)
+        bookmark = models.Bookmark.objects.get(pk=pk, user=request.user)
         bookmark.is_favorite = not bookmark.is_favorite
         bookmark.save(update_fields=["is_favorite"])
         
@@ -36,12 +48,12 @@ class MakeFavoriteView(APIView):
 
 class SummaryView(APIView):
     def get(self, request):
-        categories = models.Category.objects.count()
-        bookmarks = models.Bookmark.objects.count()
-        favorites = models.Bookmark.objects.filter(is_favorite=True).count()
+        categories = models.Category.objects.filter(user=request.user).count()
+        bookmarks = models.Bookmark.objects.filter(user=request.user).count()
+        favorites = models.Bookmark.objects.filter(user=request.user, is_favorite=True).count()
         data = {
-            "categories": categories,
-            "bookmarks": bookmarks,
-            "favorite_bookmarks": favorites
+            "n_categories": categories,
+            "n_bookmarks": bookmarks,
+            "n_favorite_bookmarks": favorites
         }
         return Response(data, status=status.HTTP_200_OK)

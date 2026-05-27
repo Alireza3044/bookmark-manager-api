@@ -11,11 +11,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class BookmarkSerializer(serializers.ModelSerializer):
-    category = serializers.SlugRelatedField(
-        queryset=models.Category.objects.all(),
-        slug_field="name"
-    )
-
     class Meta:
         model = models.Bookmark
         fields = "__all__"
