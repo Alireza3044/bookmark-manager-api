@@ -136,6 +136,6 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    '127.0.0.1:5173',
-    'localhost:5173',
+    'http://127.0.0.1:5173',
+    'http://localhost:5173',
 ]
