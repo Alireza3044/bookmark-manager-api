@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 
-from account_app import serializers
+from . import serializers
 
 
 class RegisterView(CreateAPIView):
@@ -28,7 +28,6 @@ class RegisterView(CreateAPIView):
 
 
 class LogoutView(CreateAPIView):
-
     def create(self, request):
         request.user.auth_token.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

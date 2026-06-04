@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.test import APITestCase
 from rest_framework.authtoken.models import Token
-from bookmark_app import models
+
+from . import models
 
 
 class CategoryTestCase(APITestCase):

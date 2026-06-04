@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
 from rest_framework_nested.routers import NestedSimpleRouter
-from bookmark_app import views
+from . import views
 
 category_router = SimpleRouter()
 category_router.register("categories", views.CategoryViewSet, "category")
