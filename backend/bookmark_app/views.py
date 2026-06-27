@@ -7,7 +7,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from . import models, serializers
+from . import models
+
+from . import serializers
 
 
 class CategoryViewSet(ModelViewSet):
