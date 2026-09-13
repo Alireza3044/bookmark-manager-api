@@ -33,21 +33,21 @@ A robust RESTful API built with Django REST Framework (DRF) for organizing and m
 
 | Endpoint | Method | Description |
 | :--- | :---: | :--- |
-| `/register/` | `POST` | Register a new user account |
-| `/login/` | `POST` | Authenticate credentials and receive an auth token |
-| `/logout/` | `POST` | Revoke current user authentication token |
+| `/api/auth/register/` | `POST` | Register a new user account |
+| `/api/auth/login/` | `POST` | Authenticate credentials and receive an auth token |
+| `/api/auth/logout/` | `POST` | Revoke current user authentication token |
 
 ### Categories & Bookmarks
 
 | Endpoint | Method | Description |
 | :--- | :---: | :--- |
-| `/categories/` | `GET`, `POST` | List all user categories or create a new category |
-| `/categories/{id}/` | `GET`, `PUT`, `DELETE` | Retrieve, update, or delete a specific category |
-| `/categories/{category_pk}/bookmarks/` | `GET`, `POST` | List bookmarks within a category or create a nested bookmark |
-| `/categories/{category_pk}/bookmarks/{id}/` | `GET`, `PUT`, `DELETE` | Retrieve, update, or delete a category-nested bookmark |
-| `/bookmarks/` | `GET` | List all global bookmarks across all categories |
-| `/favorite/{id}/` | `POST` | Toggle favorite status for a target bookmark |
-| `/summary/` | `GET` | Retrieve summary stats for user categories and bookmarks |
+| `/api/categories/` | `GET`, `POST` | List all user categories or create a new category |
+| `/api/categories/{id}/` | `GET`, `PUT`, `DELETE` | Retrieve, update, or delete a specific category |
+| `/api/categories/{category_pk}/bookmarks/` | `GET`, `POST` | List bookmarks within a category or create a nested bookmark |
+| `/api/categories/{category_pk}/bookmarks/{id}/` | `GET`, `PUT`, `DELETE` | Retrieve, update, or delete a category-nested bookmark |
+| `/api/bookmarks/` | `GET` | List all global bookmarks across all categories |
+| `/api/favorite/{id}/` | `POST` | Toggle favorite status for a target bookmark |
+| `/api/summary/` | `GET` | Retrieve summary stats for user categories and bookmarks |
 
 ---
 
