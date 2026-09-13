@@ -1,6 +1,6 @@
 # Bookmark Manager API
 
-A robust RESTful API built with Django REST Framework (DRF) for organizing and managing web bookmarks into nested categories, complete with user authentication, bookmark favoriting, and summary analytics.
+A robust RESTful API built with Django REST Framework (DRF) for organizing and managing web bookmarks into nested categories, complete with token-based user authentication, bookmark favoriting, and summary analytics.
 
 <!-- Optional: Add an API overview diagram or Postman/Swagger screenshot here -->
 <!-- ![API Overview](path/to/demo.png) -->
@@ -9,23 +9,35 @@ A robust RESTful API built with Django REST Framework (DRF) for organizing and m
 
 ## Features
 
+* **Token-Based Authentication:** Complete user registration, login (token retrieval), and logout workflows.
 * **Nested Resource Architecture:** Category-driven bookmark management implemented via DRF nested routers.
 * **Global & Filtered Views:** Access category-specific bookmark lists or fetch global user bookmarks across all categories.
 * **Favorite Toggle:** Dedicated endpoint for favoriting/unfavoriting key bookmarks.
 * **Summary Analytics:** Aggregated insights and metrics for user categories and bookmarks.
-* **Authentication & Permissions:** User-isolated data access ensuring users only manage their own bookmarks and categories.
+* **User-Isolated Access:** Permission enforcement ensuring users only view and modify their own bookmarks and categories.
 
 ---
 
 ## Tech Stack
 
 * **Backend:** Django, Django REST Framework (DRF)
+* **Authentication:** DRF Token Authentication (`rest_framework.authtoken`)
 * **Routing:** `drf-nested-routers`
 * **Database:** PostgreSQL
 
 ---
 
 ## API Endpoints Reference
+
+### Authentication
+
+| Endpoint | Method | Description |
+| :--- | :---: | :--- |
+| `/register/` | `POST` | Register a new user account |
+| `/login/` | `POST` | Authenticate credentials and receive an auth token |
+| `/logout/` | `POST` | Revoke current user authentication token |
+
+### Categories & Bookmarks
 
 | Endpoint | Method | Description |
 | :--- | :---: | :--- |
@@ -64,7 +76,7 @@ A robust RESTful API built with Django REST Framework (DRF) for organizing and m
    SECRET_KEY=your-secret-key
    DEBUG=True
 
-   # Optional Database Settings (if applicable)
+   # Database Settings
    DB_NAME=your_db_name
    DB_USER=your_db_user
    DB_PASSWORD=your_db_password
