@@ -1,15 +1,11 @@
 from django_filters.rest_framework import DjangoFilterBackend
-
 from rest_framework import status
-from rest_framework.filters import OrderingFilter
 from rest_framework.generics import ListAPIView, UpdateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from . import models
-
-from . import serializers
+from . import models, serializers
 
 
 class CategoryViewSet(ModelViewSet):
@@ -39,8 +35,6 @@ class GlobalBookmarksView(ListAPIView):
     serializer_class = serializers.BookmarkSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ["title", "user", "category", "is_favorite"]
-    ordering_fields = ["created_at", "updated_at"]
-    ordering = ["-created_at"]
 
     def get_queryset(self):
         return models.Bookmark.objects.filter(user=self.request.user)
@@ -67,8 +61,8 @@ class SummaryView(APIView):
         bookmarks = models.Bookmark.objects.filter(user=request.user).count()
         favorites = models.Bookmark.objects.filter(user=request.user, is_favorite=True).count()
         data = {
-            "n_categories": categories,
-            "n_bookmarks": bookmarks,
-            "n_favorite_bookmarks": favorites
+            "categories": categories,
+            "bookmarks": bookmarks,
+            "favorites": favorites
         }
         return Response(data, status=status.HTTP_200_OK)
