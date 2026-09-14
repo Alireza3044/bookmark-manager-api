@@ -2,9 +2,6 @@
 
 A robust RESTful API built with Django REST Framework (DRF) for organizing and managing web bookmarks into nested categories, complete with token-based user authentication, bookmark favoriting, and summary analytics.
 
-<!-- Optional: Add an API overview diagram or Postman/Swagger screenshot here -->
-<!-- ![API Overview](path/to/demo.png) -->
-
 ---
 
 ## Features
