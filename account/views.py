@@ -1,4 +1,5 @@
 from rest_framework import status
+from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
@@ -11,23 +12,21 @@ class RegisterView(CreateAPIView):
     serializer_class = serializers.RegisterSerializer
     permission_classes = [AllowAny]
 
-    def create(self, request):
-        serializer = self.serializer_class(data=request.data)
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         user = serializer.save()
-        token = Token.objects.get(user=user)
         data = {
-            "response": "Registration was successful!",
+            "message": "Registration was successful!",
             "username": user.username,
             "email": user.email,
-            "token": token.key
+            "token": user.auth_token.key
         }
-        headers = self.get_success_headers(data)
-        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(data, status=status.HTTP_201_CREATED)
 
 
-class LogoutView(CreateAPIView):
-    def create(self, request):
-        request.user.auth_token.delete()
+class LogoutView(APIView):
+    def post(self, request):
+        Token.objects.filter(user=request.user).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
