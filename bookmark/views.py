@@ -33,7 +33,7 @@ class BookmarkViewSet(ModelViewSet):
 
 class GlobalBookmarksView(ListAPIView):
     serializer_class = serializers.BookmarkSerializer
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filter_backends = [DjangoFilterBackend]
     filterset_fields = ["title", "user", "category", "is_favorite"]
 
     def get_queryset(self):
